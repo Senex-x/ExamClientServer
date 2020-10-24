@@ -5,6 +5,10 @@ public class Task {
     static int ans1;
     static int ans2;
 
+    public static void main(String[] args) {
+        Client.start();
+    }
+
     static int firstTask() {
         ans1 = inp1 + inp2;
         return ans1;

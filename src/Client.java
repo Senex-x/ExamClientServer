@@ -5,7 +5,7 @@ import java.io.*;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
-public class Client {
+class Client {
     private static final String HOSTNAME_LOCAL = "127.0.0.1";
     private static final int PORT_LOCAL = 6000;
     private static final String HOSTNAME_REMOTE = "157.245.129.238";
@@ -15,18 +15,17 @@ public class Client {
     private static final String OUT1 = "Sum";
     private static final String OUT2 = "Multiply";
 
-    private static final String RESULT_AC = "VERDICT: ACCEPTED";
-    private static final String RESULT_WA = "VERDICT: WRONG ANSWER";
-    private static final String RESULT_RE = "VERDICT: RUNTIME ERROR";
+    private static final String RESULT_AC = "\nVERDICT: ACCEPTED";
+    private static final String RESULT_WA = "\nVERDICT: WRONG ANSWER";
+    private static final String RESULT_RE = "\nVERDICT: RUNTIME ERROR";
 
-    private static Socket socket;
     private static InputStream inputStream;
     private static OutputStream outputStream;
 
-    public static void main(String[] args) {
+    static void start() {
         try {
             // basic initialisation
-            socket = new Socket();
+            Socket socket = new Socket();
             socket.connect(new InetSocketAddress(HOSTNAME_REMOTE, PORT_REMOTE), 2000);
             inputStream = socket.getInputStream();
             outputStream = socket.getOutputStream();
@@ -80,8 +79,7 @@ public class Client {
         response = response.replaceAll("\\p{C}", "");
         display("Received message: ", response);
         // parsing json file to ResponseItem instance
-        ResponseItem responseItem = new Gson().fromJson(response, ResponseItem.class);
-        return responseItem;
+        return new Gson().fromJson(response, ResponseItem.class);
     }
 
     private static void sendResults() throws IOException {

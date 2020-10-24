@@ -1,39 +1,29 @@
-public class ResponseItem {
+class ResponseItem {
     private int Type;
     private int X;
     private int Y;
 
-    public ResponseItem() {
-
-    }
-
-    public ResponseItem(int messageType, int x, int y) {
-        this.Type = messageType;
-        this.X = x;
-        this.Y = y;
-    }
-
-    public int getX() {
+    int getX() {
         return X;
     }
 
-    public void setX(int x) {
+    void setX(int x) {
         this.X = x;
     }
 
-    public int getY() {
+    int getY() {
         return Y;
     }
 
-    public void setY(int y) {
+    void setY(int y) {
         this.Y = y;
     }
 
-    public int getMessageType() {
+    int getMessageType() {
         return Type;
     }
 
-    public void setMessageType(int messageType) {
+    void setMessageType(int messageType) {
         this.Type = messageType;
     }
 
