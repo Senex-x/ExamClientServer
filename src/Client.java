@@ -30,27 +30,32 @@ class Client {
             inputStream = socket.getInputStream();
             outputStream = socket.getOutputStream();
 
-            // sending start request to server for it to respond me
+            // sending start request to server for it to send respond data
             sendStartRequest();
 
             // receiving and parsing json response file to instance of ResponseItem
             ResponseItem responseItem = getServerResponse();
+
+            // setting received data to the Task class
             Task.inp1 = responseItem.getX();
             Task.inp2 = responseItem.getY();
 
-            // sending student's method's outputs to server
+            // executing Task methods and sending results to server
             sendResults();
 
-            // receiving verdict either answer is true or not
+            // receiving and parsing json response file to get verdict from server
             responseItem = getServerResponse();
             switch (responseItem.getMessageType()) {
                 case 1:
+                    // accepted
                     System.out.println(RESULT_AC);
                     break;
                 case 2:
+                    // wrong answer
                     System.out.println(RESULT_WA);
                     break;
                 case 3:
+                    // runtime error
                     System.out.println(RESULT_RE);
                     break;
             }
@@ -63,7 +68,7 @@ class Client {
 
     private static void sendStartRequest() throws IOException {
         // making startRequest json file
-        JSONObject startRequest = createResponseJson(0, -1, -1);
+        JSONObject startRequest = createJsonResponse(0, -1, -1);
         display("Sent request message: ", startRequest.toString());
         // sending startRequest json file to server
         outputStream.write(startRequest.toString().getBytes());
@@ -83,12 +88,14 @@ class Client {
     }
 
     private static void sendResults() throws IOException {
-        JSONObject results = createResponseJson(1, Task.firstTask(), Task.secondTask());
+        // making results json file
+        JSONObject results = createJsonResponse(1, Task.firstTask(), Task.secondTask());
         display("Sent result message: ", results);
+        // sending results json file to server
         outputStream.write(results.toString().getBytes());
     }
 
-    private static JSONObject createResponseJson(int type, int sum, int multiply) {
+    private static JSONObject createJsonResponse(int type, int sum, int multiply) {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put(TYPE, type);
         jsonObject.put(OUT1, sum);
@@ -96,6 +103,7 @@ class Client {
         return jsonObject;
     }
 
+    // logs can be easily disabled by changing this method
     private static <T> void display(String message, T object) {
         System.out.println(message + object);
     }
