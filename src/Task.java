@@ -4,13 +4,14 @@ public class Task {
 
     static int ans1;
     static int ans2;
-    static int[] answers = new int[10];
 
-    static void firstTask() {
-        ans1 = inp1 ++;
+    static int firstTask() {
+        ans1 = inp1 + 1;
+        return ans1;
     }
 
     static int secondTask() {
-        return inp2 --;
+        ans2 = inp2 - 1;
+        return ans2;
     }
 }
