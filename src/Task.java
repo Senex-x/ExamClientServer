@@ -6,12 +6,12 @@ public class Task {
     static int ans2;
 
     static int firstTask() {
-        ans1 = inp1 + 1;
+        ans1 = inp1 + inp2;
         return ans1;
     }
 
     static int secondTask() {
-        ans2 = inp2 - 1;
+        ans2 = inp1 * inp2;
         return ans2;
     }
 }

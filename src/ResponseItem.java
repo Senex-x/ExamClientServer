@@ -1,24 +1,16 @@
 public class ResponseItem {
-    private String Type;
+    private int Type;
     private int X;
     private int Y;
-
-    public String getType() {
-        return Type;
-    }
-
-    public void setType(String type) {
-        Type = type;
-    }
 
     public ResponseItem() {
 
     }
 
-    public ResponseItem(String type, int x, int y) {
-        Type = type;
-        X = x;
-        Y = y;
+    public ResponseItem(int messageType, int x, int y) {
+        this.Type = messageType;
+        this.X = x;
+        this.Y = y;
     }
 
     public int getX() {
@@ -26,7 +18,7 @@ public class ResponseItem {
     }
 
     public void setX(int x) {
-        X = x;
+        this.X = x;
     }
 
     public int getY() {
@@ -34,11 +26,19 @@ public class ResponseItem {
     }
 
     public void setY(int y) {
-        Y = y;
+        this.Y = y;
+    }
+
+    public int getMessageType() {
+        return Type;
+    }
+
+    public void setMessageType(int messageType) {
+        this.Type = messageType;
     }
 
     @Override
     public String toString() {
-        return  Type + " " + X + " " + Y;
+        return  "Message type is: " + Type + ", first value is: " + X + ", second value is: " + Y;
     }
 }

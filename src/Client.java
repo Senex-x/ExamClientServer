@@ -6,22 +6,22 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 
 public class Client {
+    private static final String HOSTNAME_LOCAL = "127.0.0.1";
+    private static final int PORT_LOCAL = 6000;
+    private static final String HOSTNAME_REMOTE = "157.245.129.238";
+    private static final int PORT_REMOTE = 11000;
 
-    static private final String HOSTNAME_LOCAL = "127.0.0.1";
-    static private final int PORT_LOCAL = 6000;
-    static private final String HOSTNAME_REMOTE = "157.245.129.238";
-    static private final int PORT_REMOTE = 11000;
-    static private final String HOSTNAME_TEST = "85.26.233.109";
+    private static final String TYPE = "MessageType";
+    private static final String OUT1 = "Sum";
+    private static final String OUT2 = "Multiply";
 
-    static private final String TYPE = "MessageType";
-    static private final String OUT1 = "Sum";
-    static private final String OUT2 = "Multiply";
+    private static final String RESULT_AC = "VERDICT: ACCEPTED";
+    private static final String RESULT_WA = "VERDICT: WRONG ANSWER";
+    private static final String RESULT_RE = "VERDICT: RUNTIME ERROR";
 
-    static private Socket socket;
-    static private InputStream inputStream;
-    static private OutputStream outputStream;
-
-    static boolean end;
+    private static Socket socket;
+    private static InputStream inputStream;
+    private static OutputStream outputStream;
 
     public static void main(String[] args) {
         try {
@@ -42,11 +42,52 @@ public class Client {
             // sending student's method's outputs to server
             sendResults();
 
+            // receiving verdict either answer is true or not
+            responseItem = getServerResponse();
+            switch (responseItem.getMessageType()) {
+                case 1:
+                    System.out.println(RESULT_AC);
+                    break;
+                case 2:
+                    System.out.println(RESULT_WA);
+                    break;
+                case 3:
+                    System.out.println(RESULT_RE);
+                    break;
+            }
+
             socket.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
+    private static void sendStartRequest() throws IOException {
+        // making startRequest json file
+        JSONObject startRequest = createResponseJson(0, -1, -1);
+        display("Sent request message: ", startRequest.toString());
+        // sending startRequest json file to server
+        outputStream.write(startRequest.toString().getBytes());
+    }
+
+    private static ResponseItem getServerResponse() throws IOException {
+        byte[] byteData = new byte[64];
+        // receiving json file and writing it to byte array
+        inputStream.read(byteData);
+        // making string from received byte array
+        String response = new String(byteData);
+        // cleaning string from service characters which are ruining parsing
+        response = response.replaceAll("\\p{C}", "");
+        display("Received message: ", response);
+        // parsing json file to ResponseItem instance
+        ResponseItem responseItem = new Gson().fromJson(response, ResponseItem.class);
+        return responseItem;
+    }
+
+    private static void sendResults() throws IOException {
+        JSONObject results = createResponseJson(1, Task.firstTask(), Task.secondTask());
+        display("Sent result message: ", results);
+        outputStream.write(results.toString().getBytes());
     }
 
     private static JSONObject createResponseJson(int type, int sum, int multiply) {
@@ -57,39 +98,8 @@ public class Client {
         return jsonObject;
     }
 
-
-    private static void sendResults() throws IOException {
-        JSONObject results = createResponseJson(1, Task.firstTask(), Task.secondTask());
-        System.out.println("Sent result message: " + results);
-        outputStream.write(results.toString().getBytes());
-    }
-
-    private static void sendStartRequest() throws IOException {
-        // making startRequest json file
-        JSONObject startRequest = createResponseJson(0, -1, -1);
-        System.out.println("Sent request message: " + startRequest.toString());
-        // sending startRequest json file to server
-        outputStream.write(startRequest.toString().getBytes());
-    }
-
-    private static ResponseItem getServerResponse() throws IOException {
-        byte[] byteData = new byte[64];
-        // receiving json file as byte array
-        inputStream.read(byteData);
-        // making string from received byte array
-        String response = new String(byteData);
-        // cleaning string from service characters which are ruining parsing
-        response = response.replaceAll("\\p{C}", "");
-        System.out.println("Received message: " + response);
-        // parsing json file to ResponseItem instance
-        ResponseItem responseItem = new Gson().fromJson(response, ResponseItem.class);
-        return responseItem;
-    }
-
-    private static final String TAG = "Debug log message ";
-
-    private static void log(int id) {
-        System.out.println(TAG + id);
+    private static <T> void display(String message, T object) {
+        System.out.println(message + object);
     }
 }
 
