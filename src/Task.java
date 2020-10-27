@@ -1,29 +1,27 @@
 public class Task {
-    static double[][] points;
-    static double[] classes;
-    static double x;
-    static double y;
+    public static final String name = "";
 
-    static double[][] normalized;
-    static double[] proximities;
-    static int resultClass;
+    public static double[][] points;
+    public static int[] classes;
+    public static double x;
+    public static double y;
+
+    public static double[][] normalized;
+    public static double[] proximities;
+    public static int resultClass;
+
 
     public static void main(String[] args) {
         Client.start();
     }
 
-    static double[][] firstTask() {
-        normalized = new double[][] {new double[] {0}};
-        return normalized;
+
+    public static void firstTask() {
     }
 
-    static double[] secondTask() {
-        proximities = new double[] {0};
-        return proximities;
+    public static void secondTask() {
     }
 
-    static int thirdTask() {
-        resultClass = 0;
-        return resultClass;
+    public static void thirdTask() {
     }
 }

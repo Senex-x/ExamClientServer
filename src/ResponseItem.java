@@ -1,19 +1,11 @@
 
 public class ResponseItem {
-    private String name;
     private int Type;
-    private double[][] points;
-    private double[] classes;
-    private double x;
-    private double y;
+    private double[][] Points;
+    private int[] Classes;
+    private double X;
+    private double Y;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public int getType() {
         return Type;
@@ -24,34 +16,34 @@ public class ResponseItem {
     }
 
     public double[][] getPoints() {
-        return points;
+        return Points;
     }
 
     public void setPoints(double[][] points) {
-        this.points = points;
+        this.Points = points;
     }
 
-    public double[] getClasses() {
-        return classes;
+    public int[] getClasses() {
+        return Classes;
     }
 
-    public void setClasses(double[] classes) {
-        this.classes = classes;
+    public void setClasses(int[] classes) {
+        this.Classes = classes;
     }
 
     public double getX() {
-        return x;
+        return X;
     }
 
     public void setX(double x) {
-        this.x = x;
+        this.X = x;
     }
 
     public double getY() {
-        return y;
+        return Y;
     }
 
     public void setY(double y) {
-        this.y = y;
+        this.Y = y;
     }
 }
