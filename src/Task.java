@@ -1,17 +1,18 @@
 public class Task {
-    static int inp1 = 0;
-    static int inp2 = 0;
+    static double[][] points;
+    static double[] classes;
+    static double x;
+    static double y;
 
-    static int ans1;
-    static int ans2;
+    static double[][] normalized;
+    static double[] proximities;
+    static int resultClass;
 
-    static int firstTask() {
-        ans1 = inp1 + 1;
-        return ans1;
+    static double[][] firstTask() {
+        return normalized;
     }
 
-    static int secondTask() {
-        ans2 = inp2 - 1;
-        return ans2;
+    static double[] secondTask() {
+        return proximities;
     }
 }

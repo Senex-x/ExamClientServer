@@ -1,7 +1,8 @@
 public class ResponseItem {
     private String Type;
-    private int X;
-    private int Y;
+    private double[][] normalized;
+    private double[] proximities;
+    private int resultClass;
 
     public String getType() {
         return Type;
@@ -11,34 +12,27 @@ public class ResponseItem {
         Type = type;
     }
 
-    public ResponseItem() {
-
+    public double[][] getNormalized() {
+        return normalized;
     }
 
-    public ResponseItem(String type, int x, int y) {
-        Type = type;
-        X = x;
-        Y = y;
+    public void setNormalized(double[][] normalized) {
+        this.normalized = normalized;
     }
 
-    public int getX() {
-        return X;
+    public double[] getProximities() {
+        return proximities;
     }
 
-    public void setX(int x) {
-        X = x;
+    public void setProximities(double[] proximities) {
+        this.proximities = proximities;
     }
 
-    public int getY() {
-        return Y;
+    public int getResultClass() {
+        return resultClass;
     }
 
-    public void setY(int y) {
-        Y = y;
-    }
-
-    @Override
-    public String toString() {
-        return  Type + " " + X + " " + Y;
+    public void setResultClass(int resultClass) {
+        this.resultClass = resultClass;
     }
 }
