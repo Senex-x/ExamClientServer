@@ -11,9 +11,11 @@ class Client {
     private static final String HOSTNAME_REMOTE = "157.245.129.238";
     private static final int PORT_REMOTE = 11000;
 
+    private static final String NAME = "name";
     private static final String TYPE = "MessageType";
-    private static final String OUT1 = "Sum";
-    private static final String OUT2 = "Multiply";
+    private static final String OUT1 = "normalized";
+    private static final String OUT2 = "proximities";
+    private static final String OUT3 = "resultClass";
 
     private static final String RESULT_AC = "\nVERDICT: ACCEPTED";
     private static final String RESULT_WA = "\nVERDICT: WRONG ANSWER";
@@ -37,15 +39,17 @@ class Client {
             ResponseItem responseItem = getServerResponse();
 
             // setting received data to the Task class
-            Task.inp1 = responseItem.getX();
-            Task.inp2 = responseItem.getY();
+            Task.points = responseItem.getPoints();
+            Task.classes = responseItem.getClasses();
+            Task.x = responseItem.getX();
+            Task.y = responseItem.getY();
 
             // executing Task methods and sending results to server
             sendResults();
 
             // receiving and parsing json response file to get verdict from server
             responseItem = getServerResponse();
-            switch (responseItem.getMessageType()) {
+            switch (responseItem.getType()) {
                 case 1:
                     // accepted
                     System.out.println(RESULT_AC);
@@ -68,7 +72,7 @@ class Client {
 
     private static void sendStartRequest() throws IOException {
         // making startRequest json file
-        JSONObject startRequest = createJsonResponse(0, -1, -1);
+        JSONObject startRequest = createJsonResponse(0, new double[][] {new double[] {0}}, new double[] {0}, -1);
         display("Sent request message: ", startRequest.toString());
         // sending startRequest json file to server
         outputStream.write(startRequest.toString().getBytes());
@@ -89,23 +93,33 @@ class Client {
 
     private static void sendResults() throws IOException {
         // making results json file
-        JSONObject results = createJsonResponse(1, Task.firstTask(), Task.secondTask());
+        JSONObject results = createJsonResponse(1, Task.firstTask(), Task.secondTask(), Task.thirdTask());
         display("Sent result message: ", results);
         // sending results json file to server
         outputStream.write(results.toString().getBytes());
     }
 
-    private static JSONObject createJsonResponse(int type, int sum, int multiply) {
+    private static JSONObject createJsonResponse(int type, double[][] first, double[] second, int third) {
+        System.out.println("_____" + second[0]);
         JSONObject jsonObject = new JSONObject();
         jsonObject.put(TYPE, type);
-        jsonObject.put(OUT1, sum);
-        jsonObject.put(OUT2, multiply);
+        jsonObject.put(OUT1, first);
+        jsonObject.put(OUT2, getString(second));
+        jsonObject.put(OUT3, third);
         return jsonObject;
     }
 
     // logs can be easily disabled by changing this method
     private static <T> void display(String message, T object) {
         System.out.println(message + object);
+    }
+
+    private static String getString(double[] object) {
+        String result = "";
+        for(double x:object) {
+            result += Double.toString(x);
+        }
+        return result;
     }
 }
 

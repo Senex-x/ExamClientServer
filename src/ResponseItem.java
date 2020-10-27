@@ -1,39 +1,57 @@
 
 public class ResponseItem {
-    private String Type;
-    private double[][] normalized;
-    private double[] proximities;
-    private int resultClass;
+    private String name;
+    private int Type;
+    private double[][] points;
+    private double[] classes;
+    private double x;
+    private double y;
 
-    public String getType() {
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getType() {
         return Type;
     }
 
-    public void setType(String type) {
+    public void setType(int type) {
         Type = type;
     }
 
-    public double[][] getNormalized() {
-        return normalized;
+    public double[][] getPoints() {
+        return points;
     }
 
-    public void setNormalized(double[][] normalized) {
-        this.normalized = normalized;
+    public void setPoints(double[][] points) {
+        this.points = points;
     }
 
-    public double[] getProximities() {
-        return proximities;
+    public double[] getClasses() {
+        return classes;
     }
 
-    public void setProximities(double[] proximities) {
-        this.proximities = proximities;
+    public void setClasses(double[] classes) {
+        this.classes = classes;
     }
 
-    public int getResultClass() {
-        return resultClass;
+    public double getX() {
+        return x;
     }
 
-    public void setResultClass(int resultClass) {
-        this.resultClass = resultClass;
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public void setY(double y) {
+        this.y = y;
     }
 }

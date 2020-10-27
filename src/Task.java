@@ -12,14 +12,18 @@ public class Task {
         Client.start();
     }
 
-    static int firstTask() {
-        ans1 = inp1 + inp2;
-        return ans1;
+    static double[][] firstTask() {
+        normalized = new double[][] {new double[] {0}};
+        return normalized;
     }
 
-    static int secondTask() {
-        ans2 = inp1 * inp2;
-        return ans2;
+    static double[] secondTask() {
+        proximities = new double[] {0};
+        return proximities;
+    }
 
+    static int thirdTask() {
+        resultClass = 0;
+        return resultClass;
     }
 }
