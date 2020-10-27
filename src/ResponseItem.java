@@ -1,3 +1,4 @@
+
 public class ResponseItem {
     private String Type;
     private double[][] normalized;

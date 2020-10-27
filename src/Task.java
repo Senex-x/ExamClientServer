@@ -8,11 +8,18 @@ public class Task {
     static double[] proximities;
     static int resultClass;
 
-    static double[][] firstTask() {
-        return normalized;
+    public static void main(String[] args) {
+        Client.start();
     }
 
-    static double[] secondTask() {
-        return proximities;
+    static int firstTask() {
+        ans1 = inp1 + inp2;
+        return ans1;
+    }
+
+    static int secondTask() {
+        ans2 = inp1 * inp2;
+        return ans2;
+
     }
 }
